@@ -6,7 +6,35 @@
         jumboMode="false"
         revision="23.0.2"
         sha1="b1b6ea3b7e4aa4f492509a4952029cd8e48019ad">
-        <dex dex="/Users/hganeshmurthy/AndroidStudioProjects/TodoApp/app/build/intermediates/pre-dexed/debug/commons-io-2.4-7ea8ffe715baec452ff72c7edb2fc9c5f458d9f5.jar" />
+        <dex dex="/Users/hganeshmurthy/git/TodoApp/app/build/intermediates/pre-dexed/debug/commons-io-2.4-7ea8ffe715baec452ff72c7edb2fc9c5f458d9f5.jar" />
+    </item>
+    <item
+        jar="/Users/hganeshmurthy/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="/Users/hganeshmurthy/git/TodoApp/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-135f0962fa48447adf032c7dc29cfb0cb86345f9.jar" />
+    </item>
+    <item
+        jar="/Users/hganeshmurthy/git/TodoApp/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="/Users/hganeshmurthy/git/TodoApp/app/build/intermediates/pre-dexed/debug/classes-c164c34717b75ee51e7e4f1fd18d506d5d5a7774.jar" />
+    </item>
+    <item
+        jar="/Users/hganeshmurthy/git/TodoApp/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="/Users/hganeshmurthy/git/TodoApp/app/build/intermediates/pre-dexed/debug/classes-56302bc6150204e9d3d58c86eb52bf628a957676.jar" />
+    </item>
+    <item
+        jar="/Users/hganeshmurthy/git/TodoApp/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/jars/libs/internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="/Users/hganeshmurthy/git/TodoApp/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-2264a0acd3dd042b94b325f8b091c2f63461979c.jar" />
     </item>
 
 </items>
