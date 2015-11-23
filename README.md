@@ -6,6 +6,7 @@ Required : User can you successfully add, remove and edit items from the todo li
 
 Required : User can persist todo items and retrieve them properly on app restart.
 
+Additional Requirements completed :  Persist the todo items into SQLite instead of a text file
 
 Walkthrough of all user stories:
 
