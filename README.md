@@ -2,13 +2,9 @@ This is an Android simple application for keeping record of all the todo activit
 
 Completed user stories:
 
-Required : User can you successfully add, remove and edit items from the todo list within the app.
-
-Required : User can persist todo items and retrieve them properly on app restart.
-
 Additional Requirements completed :  Persist the todo items into SQLite instead of a text file
 
-Walkthrough of all user stories:
+Walkthrough of the user stories:
 
 
 
