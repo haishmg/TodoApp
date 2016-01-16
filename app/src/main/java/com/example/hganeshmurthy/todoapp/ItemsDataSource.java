@@ -30,33 +30,57 @@ public class ItemsDataSource {
         dbHelper.close();
     }
 
-    public Item createItem(String Item) {
+    public void createItem(Item Item) {
         ContentValues values = new ContentValues();
-        values.put(MySQLiteHelper.COLUMN_ITEM, Item);
-        long insertId = database.insert(MySQLiteHelper.TABLE_ITEMS, null,
+        values.put(MySQLiteHelper.COLUMN_ITEM, Item.getItem());
+        values.put(MySQLiteHelper.COLUMN_ID, Item.getId());
+        database.insert(MySQLiteHelper.TABLE_ITEMS, null,
                 values);
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_ITEMS,
+        /*Cursor cursor = database.query(MySQLiteHelper.TABLE_ITEMS,
                 allColumns, MySQLiteHelper.COLUMN_ID + " = " + insertId, null,
                 null, null, null);
         cursor.moveToFirst();
         Item newItem = cursorToItem(cursor);
         cursor.close();
-        return newItem;
+        return newItem;*/
     }
 
-    public void deleteItem(Item Item) {
-        long id = Item.getId();
+    public void deleteItem(long id) {
         System.out.println("Item deleted with id: " + id);
         database.delete(MySQLiteHelper.TABLE_ITEMS, MySQLiteHelper.COLUMN_ID
                 + " = " + id, null);
     }
 
-    public void updateItem(Item Item) {
-        long id = Item.getId();
+    public String getItemFromId(long id) {
+        String item="";
+        String q="SELECT "+MySQLiteHelper.COLUMN_ITEM+" FROM "+MySQLiteHelper.TABLE_ITEMS+" WHERE "+MySQLiteHelper.COLUMN_ID+"=" + id;
+        Cursor  cursor = database.rawQuery(q, null);
+        if (cursor != null &&  cursor.moveToFirst()) {
+             item = cursor.getString(0);
+        }
+        cursor.close();
+        return item;
+    }
+
+    public long getMaxId() {
+        long id = 0 ;
+        String q="SELECT max("+MySQLiteHelper.COLUMN_ID+") FROM "+MySQLiteHelper.TABLE_ITEMS;
+        Cursor  cursor = database.rawQuery(q,null);
+        cursor.moveToFirst();
+
+        if (cursor != null && cursor.moveToFirst()) {
+                id = cursor.getLong(0);
+        }
+        cursor.close();
+        return id;
+    }
+
+    public void updateItem(Item it) {
+        long id = it.getId();
         ContentValues values = new ContentValues();
-        values.put(MySQLiteHelper.COLUMN_ITEM, Item.getItem());
-        System.out.println("Item deleted with id: " + id);
-        database.update(MySQLiteHelper.TABLE_ITEMS, values, MySQLiteHelper.COLUMN_ID+ " = " + id,null);
+        values.put(MySQLiteHelper.COLUMN_ITEM, it.getItem());
+        System.out.println("Item updates with id: " + id);
+        database.update(MySQLiteHelper.TABLE_ITEMS, values, MySQLiteHelper.COLUMN_ID + " = " + id, null);
     }
 
 
@@ -76,6 +100,17 @@ public class ItemsDataSource {
         cursor.close();
         return Items;
     }
+
+
+    public Cursor getAllItemsCursor() {
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_ITEMS,
+                allColumns, null, null, null, null, null);
+
+        //cursor.moveToFirst();
+        //cursor.close();
+        return cursor;
+    }
+
 
     private Item cursorToItem(Cursor cursor) {
         Item Item = new Item();

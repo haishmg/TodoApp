@@ -1,6 +1,7 @@
 package com.example.hganeshmurthy.todoapp;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -8,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -19,8 +19,12 @@ public class TodoActivity extends ActionBarActivity {
     ArrayList<String> items;
     ArrayAdapter<String> itemsAdapter;
     ListView lvItems;
-    private final int REQUEST_CODE = 20;
+    private final int REQUEST_CODE_EDIT = 20;
+    private final int REQUEST_CODE_INSERT = 30;
+
     private ItemsDataSource datasource;
+    TodoCursorAdapter todoAdapter;
+    Cursor todoCursor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +34,16 @@ public class TodoActivity extends ActionBarActivity {
         datasource.open();
 
         lvItems = (ListView) findViewById(R.id.lvItems);
-        readItems();
-        itemsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
-        lvItems.setAdapter(itemsAdapter);
-        //items.add("First Item");
-        //items.add("Second Item");
+        //readItems();
+        //itemsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
+        //lvItems.setAdapter(itemsAdapter);
+        //ArrayList<Item> tempItems = (ArrayList<Item>) datasource.getAllItems();
+
+        Cursor todoCursor = datasource.getAllItemsCursor();
+        todoAdapter = new TodoCursorAdapter(this,todoCursor,0);
+        lvItems.setAdapter(todoAdapter);
+
+
         setupListViewListener();
         setupEditViewListener();
     }
@@ -44,10 +53,12 @@ public class TodoActivity extends ActionBarActivity {
                 new AdapterView.OnItemLongClickListener() {
                     @Override
                     public boolean onItemLongClick(AdapterView<?> adapter, View item, int pos, long id) {
-                        Item tItem = new Item(pos, items.get(pos));
-                        items.remove(pos);
-                        itemsAdapter.notifyDataSetChanged();
-                        datasource.deleteItem(tItem);
+                        //items.remove(pos);
+                        //itemsAdapter.notifyDataSetChanged();
+                        datasource.deleteItem(id);
+                        Cursor tempCursor =  datasource.getAllItemsCursor();
+                        todoAdapter.changeCursor(tempCursor);
+                        todoAdapter.notifyDataSetChanged();
                         return true;
                     }
                 });
@@ -58,9 +69,9 @@ public class TodoActivity extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(TodoActivity.this, EditItemActivity.class);
-                i.putExtra("item", items.get(position).toString());
-                i.putExtra("pos",position);
-                startActivityForResult(i, REQUEST_CODE);
+                i.putExtra("item", datasource.getItemFromId(id) );
+                i.putExtra("pos",id);
+                startActivityForResult(i, REQUEST_CODE_EDIT);
             }
         });
     }
@@ -93,19 +104,41 @@ public class TodoActivity extends ActionBarActivity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // REQUEST_CODE is defined above
-        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_EDIT) {
             // Extract name value from result extras
-            String item = data.getExtras().getString("item");
-            int position = data.getExtras().getInt("pos", 0);
-            items.set(position, item);
-            itemsAdapter.notifyDataSetChanged();
-            //writeItems();
-            Item tItem = new Item(position,item);
-            datasource.updateItem(tItem);
+            //String item = data.getExtras().getString("item");
+            //int position = data.getExtras().getInt("pos", 0);
+            //items.set(position, item);
+            //itemsAdapter.notifyDataSetChanged();
+            //Item tItem = new Item(position,item);
+            //datasource.updateItem(tItem);
+
+            Cursor tempCursor =  datasource.getAllItemsCursor();
+            todoAdapter.changeCursor(tempCursor);
+            todoAdapter.notifyDataSetChanged();
 
             // Toast the name to display temporarily on screen
             Toast.makeText(this, "Successfully updated the item", Toast.LENGTH_SHORT).show();
         }
+
+        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_INSERT) {
+            // Extract name value from result extras
+          ///  String item = data.getExtras().getString("item");
+//            int position = data.getExtras().getInt("pos", 0);
+            //items.set(position, item);
+            //itemsAdapter.notifyDataSetChanged();
+
+            Cursor tempCursor =  datasource.getAllItemsCursor();
+            todoAdapter.changeCursor(tempCursor);
+            todoAdapter.notifyDataSetChanged();
+
+            //Item tItem = new Item(position,item);
+            //datasource.updateItem(tItem);
+
+            // Toast the name to display temporarily on screen
+            Toast.makeText(this, "Successfully inserted the item", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 /*    public void writeItems() {
@@ -121,12 +154,15 @@ public class TodoActivity extends ActionBarActivity {
     }
 */
     public void onAddItem(View v) {
-        EditText etNewItem = (EditText) findViewById(R.id.etNewItem);
+        /*EditText etNewItem = (EditText) findViewById(R.id.etNewItem);
         String itemText = etNewItem.getText().toString();
         itemsAdapter.add(itemText);
         etNewItem.setText("");
-       // writeItems();
         datasource.createItem(itemText);
+        */
+        Intent i = new Intent(TodoActivity.this, InsertItemActivity.class);
+        startActivityForResult(i, REQUEST_CODE_INSERT);
+
 
     }
 
