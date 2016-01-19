@@ -4,4 +4,15 @@
     <string name="title_activity_edit_item">EditItemActivity</string>
     <string name="addItem">Add a New Item</string>
     <string name="title_activity_insert_item">InsertItemActivity</string>
+    <string name="priority_prompt">Item Priority</string>
+    <string name="tvPriority">Priority</string>
+    <string name="Task">Task</string>
+    <string name="svTask"></string>
+    <string name="btnCancel">Cancel</string>
+
+    <string-array name="priority_arrays">
+        <item fgcolor="red">High</item>
+        <item fgcolor="blue">Medium</item>
+        <item fgcolor="green">Low</item>
+    </string-array>
 </resources>

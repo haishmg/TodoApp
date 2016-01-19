@@ -7,7 +7,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.hganeshmurthy.todoapp.InsertItemActivity">
+    tools:context="com.example.hganeshmurthy.todoapp.InsertItemActivity"
+    android:background="#a09999">
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -16,30 +17,121 @@
         android:text="Save"
         android:id="@+id/btnInsertItem"
         android:onClick="onInsertItem"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="199dp" />
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btnCancel"
+        android:id="@+id/btnCancelItem"
+        android:onClick="onCancelItem"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/dpItem"
+        android:layout_alignEnd="@+id/dpItem" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/etInsertItem"
-        android:layout_alignBottom="@+id/btnInsertItem"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="76dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:text="@string/svTask"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/textView2"
+        android:layout_alignRight="@+id/spPriority"
+        android:layout_alignEnd="@+id/spPriority" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Insert Item Below"
+        android:text="Task"
         android:id="@+id/ptInsertItem"
+        android:background="#ffffff"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="58dp" />
+        android:textColor="#030303"
+        android:textSize="20dp"
+        android:textColorHighlight="#181717"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="#c0c0c0"
+        android:id="@+id/view2"
+        android:layout_below="@+id/etInsertItem"
+        android:layout_alignRight="@+id/dpItem"
+        android:layout_alignEnd="@+id/dpItem" />
+
+    <Spinner
+        android:id="@+id/spPriority"
+        android:spinnerMode="dropdown"
+        android:text="Priority"
+        android:entries="@array/priority_arrays"
+        android:prompt="@string/priority_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view2"
+        android:layout_alignRight="@+id/dpItem"
+        android:layout_alignEnd="@+id/dpItem"
+        android:layout_marginTop="57dp"
+        android:layout_toRightOf="@+id/textView2"
+        android:layout_toEndOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date"
+        android:textColor="#060606"
+        android:textSize="20dp"
+        android:layout_below="@+id/view"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="#c0c0c0"
+        android:id="@+id/view"
+        android:layout_below="@+id/spPriority"
+        android:layout_alignRight="@+id/spPriority"
+        android:layout_alignEnd="@+id/spPriority" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tvPriority"
+        android:id="@+id/textView2"
+        android:textColor="#040404"
+        android:textSize="20dp"
+        android:layout_above="@+id/view"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textStyle="bold" />
+
+    <DatePicker
+        android:id="@+id/dpItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:background="#ffffff"
+        android:calendarViewShown="false"
+        android:layout_toEndOf="@+id/textView2"
+        android:layout_above="@+id/btnInsertItem"
+        android:layout_below="@+id/view"
+        android:layout_toRightOf="@+id/textView2" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btnCancel"
+        android:id="@+id/button"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/dpItem"
+        android:layout_alignEnd="@+id/dpItem" />
 
 </RelativeLayout>

@@ -2,11 +2,12 @@ package com.example.hganeshmurthy.todoapp;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.CursorAdapter;
+import android.widget.TextView;
 /**
  * Created by hganeshmurthy on 1/13/16.
  */
@@ -28,43 +29,22 @@ public class TodoCursorAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         // Find fields to populate in inflated template
-        TextView tvId = (TextView) view.findViewById(R.id.tvId);
         TextView tvItem = (TextView) view.findViewById(R.id.tvItem);
+        TextView tvPriority = (TextView) view.findViewById(R.id.tvPriority);
+
         // Extract properties from cursor
         String item = cursor.getString(cursor.getColumnIndexOrThrow("item"));
-        int id = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
+        String priority = cursor.getString(cursor.getColumnIndexOrThrow("priority"));
         // Populate fields with extracted properties
         tvItem.setText(item);
-        tvId.setText(String.valueOf(id));
+        //tvId.setText(String.valueOf(id));
+        if (priority.equals("High"))
+            tvPriority.setTextColor(Color.RED);
+        else if (priority.equals("Medium"))
+            tvPriority.setTextColor(Color.BLUE);
+        else
+            tvPriority.setTextColor(Color.GREEN);
+        tvPriority.setText(String.valueOf(priority));
 
     }
 }
-
-/*
-public class TodoCursorAdapter extends ArrayAdapter<Item> {
-
-    public TodoCursorAdapter(Context context, ArrayList<Item> items) {
-        super(context, 0, items);
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        // Get the data item for this position
-        Item item = getItem(position);
-        // Check if an existing view is being reused, otherwise inflate the view
-        if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_todo, parent, false);
-        }
-        // Lookup view for data population
-        TextView tvItem= (TextView) convertView.findViewById(R.id.tvItem);
-        TextView tvId = (TextView) convertView.findViewById(R.id.tvId);
-        // Populate the data into the template view using the data object
-
-        tvItem.setText(item.getItem());
-        tvId.setText(String.valueOf(item.getId()));
-        // Return the completed view to render on screen
-        return convertView;
-    }
-
-}
-*/
