@@ -2,7 +2,6 @@ package com.example.hganeshmurthy.todoapp;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -36,7 +35,6 @@ public class TodoActivity extends ActionBarActivity {
         datasource.open();
 
         lvItems = (ListView) findViewById(R.id.lvItems);
-        lvItems.setBackgroundColor(Color.DKGRAY);
 
         Cursor todoCursor = datasource.getAllItemsCursor();
         todoAdapter = new TodoCursorAdapter(this,todoCursor,0);
@@ -46,6 +44,7 @@ public class TodoActivity extends ActionBarActivity {
         setupEditViewListener();
         setActivityBackgroundColor(0xff00ff00);
     }
+
 
     public void setupListViewListener() {
         lvItems.setOnItemLongClickListener(

@@ -31,20 +31,40 @@ public class TodoCursorAdapter extends CursorAdapter {
         // Find fields to populate in inflated template
         TextView tvItem = (TextView) view.findViewById(R.id.tvItem);
         TextView tvPriority = (TextView) view.findViewById(R.id.tvPriority);
+        TextView tvDate = (TextView) view.findViewById(R.id.tvDate);
 
+
+        view.setBackgroundColor(Color.LTGRAY);
         // Extract properties from cursor
-        String item = cursor.getString(cursor.getColumnIndexOrThrow("item"));
-        String priority = cursor.getString(cursor.getColumnIndexOrThrow("priority"));
+        String item = cursor.getString(cursor.getColumnIndexOrThrow(MySQLiteHelper.COLUMN_ITEM));
+        String priority = cursor.getString(cursor.getColumnIndexOrThrow(MySQLiteHelper.COLUMN_PRIORITY));
+        String date = cursor.getString(cursor.getColumnIndexOrThrow(MySQLiteHelper.COLUMN_DATE));
+
+        String lDate[] = date.split("-");
+        int mm = Integer.parseInt(lDate[0]);
+        int dd = Integer.parseInt(lDate[1])+1;
+        int yy = Integer.parseInt(lDate[2]);
+
+        date = mm+"/"+dd+"/"+yy;
+
         // Populate fields with extracted properties
         tvItem.setText(item);
         //tvId.setText(String.valueOf(id));
-        if (priority.equals("High"))
+        if (priority.equalsIgnoreCase("high"))
+        {
             tvPriority.setTextColor(Color.RED);
-        else if (priority.equals("Medium"))
+            tvDate.setTextColor(Color.RED);
+        }
+        else if (priority.equalsIgnoreCase("medium")) {
             tvPriority.setTextColor(Color.BLUE);
-        else
+            tvDate.setTextColor(Color.BLUE);
+        }
+        else {
             tvPriority.setTextColor(Color.GREEN);
+            tvDate.setTextColor(Color.GREEN);
+        }
         tvPriority.setText(String.valueOf(priority));
+        tvDate.setText(String.valueOf(date));
 
     }
 }

@@ -33,7 +33,6 @@ public class EditItemActivity extends ActionBarActivity {
         int yr = Integer.parseInt(dList[2]);
         int mm = Integer.parseInt(dList[0]);
         int dd = Integer.parseInt(dList[1]);
-
         Spinner spPriority = (Spinner) findViewById(R.id.spPriority);
         String priority = getIntent().getStringExtra("priority");
         int selection=0;

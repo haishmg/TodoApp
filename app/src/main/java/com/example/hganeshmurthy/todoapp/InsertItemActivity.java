@@ -51,7 +51,6 @@ public class InsertItemActivity extends ActionBarActivity {
 
         pos = datasource.getMaxId();
         pos++;
-
         Item tempItem = new Item();
         tempItem.setItem(itemText);
         tempItem.setId(pos);
