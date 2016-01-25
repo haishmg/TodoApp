@@ -41,15 +41,14 @@ public class TodoCursorAdapter extends CursorAdapter {
         String date = cursor.getString(cursor.getColumnIndexOrThrow(MySQLiteHelper.COLUMN_DATE));
 
         String lDate[] = date.split("-");
-        int mm = Integer.parseInt(lDate[0]);
-        int dd = Integer.parseInt(lDate[1])+1;
+        int mm = Integer.parseInt(lDate[0])+1;
+        int dd = Integer.parseInt(lDate[1]);
         int yy = Integer.parseInt(lDate[2]);
 
         date = mm+"/"+dd+"/"+yy;
 
         // Populate fields with extracted properties
         tvItem.setText(item);
-        //tvId.setText(String.valueOf(id));
         if (priority.equalsIgnoreCase("high"))
         {
             tvPriority.setTextColor(Color.RED);

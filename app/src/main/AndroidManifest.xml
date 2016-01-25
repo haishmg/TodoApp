@@ -22,7 +22,10 @@
             android:label="@string/title_activity_edit_item" />
         <activity
             android:name=".InsertItemActivity"
-            android:label="@string/title_activity_insert_item"></activity>
+            android:label="@string/title_activity_insert_item" />
+        <activity
+            android:name=".EditNameDialog"
+            android:label="@string/title_activity_edit_name_dialog"></activity>
     </application>
 
 </manifest>

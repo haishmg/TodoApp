@@ -21,11 +21,8 @@ public class InsertItemActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_insert_item);
-        //pos = getIntent().getIntExtra("pos",0);
         datasource = new ItemsDataSource(this);
         datasource.open();
-       // etInsertItem = (EditText) findViewById(R.id.etInsertItem);
-       // etInsertItem.setText(item);
         etInsertItem = (EditText) findViewById(R.id.etInsertItem);
 
     }
@@ -57,7 +54,6 @@ public class InsertItemActivity extends ActionBarActivity {
         tempItem.setPriority(spValue);
         tempItem.setDate(month+"-"+day+"-"+year);
 
-        //itemsAdapter.add(itemText);
         etInsertItem.setText("");
         datasource.createItem(tempItem);
 

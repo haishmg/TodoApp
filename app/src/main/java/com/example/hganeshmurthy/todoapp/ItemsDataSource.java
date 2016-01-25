@@ -126,9 +126,6 @@ public class ItemsDataSource {
     public Cursor getAllItemsCursor() {
         Cursor cursor = database.query(MySQLiteHelper.TABLE_ITEMS,
                 allColumns, null, null, null, null, null);
-
-        //cursor.moveToFirst();
-        //cursor.close();
         return cursor;
     }
 

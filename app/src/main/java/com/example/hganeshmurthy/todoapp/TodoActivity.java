@@ -1,31 +1,42 @@
 package com.example.hganeshmurthy.todoapp;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.example.hganeshmurthy.todoapp.EditItemDialog.EditItemDialogListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TodoActivity extends ActionBarActivity {
+public class TodoActivity extends ActionBarActivity  implements EditItemDialogListener, DatePickerDialog.OnDateSetListener {
     ArrayList<String> items;
     ArrayAdapter<String> itemsAdapter;
     ListView lvItems;
     private final int REQUEST_CODE_EDIT = 20;
     private final int REQUEST_CODE_INSERT = 30;
+    private String date;
+    private String position;
+    private String item;
+    private String priority;
 
 
     private ItemsDataSource datasource;
     TodoCursorAdapter todoAdapter;
     Cursor todoCursor;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +75,8 @@ public class TodoActivity extends ActionBarActivity {
         lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                showEditDialog(id);
+                /*
                 Intent i = new Intent(TodoActivity.this, EditItemActivity.class);
                 i.putExtra("item", datasource.getItemFromId(id));
                 i.putExtra("pos", id);
@@ -71,9 +84,53 @@ public class TodoActivity extends ActionBarActivity {
                 i.putExtra("priority", datasource.getPriorityFromId(id));
 
                 startActivityForResult(i, REQUEST_CODE_EDIT);
+                */
             }
         });
     }
+
+    private void showEditDialog(long id) {
+        FragmentManager fm = getSupportFragmentManager();
+        EditItemDialog editNameDialog = EditItemDialog.newInstance(datasource.getItemFromId(id), id, datasource.getDateFromId(id), datasource.getPriorityFromId(id));
+        editNameDialog.show(fm, "fragment_edit_item ");
+
+    }
+
+    public void onFinishEditDialog(String item,String position, String date, String priority) {
+
+        showSpinnerDialog(Long.parseLong(position));
+
+         this.priority = priority;
+         this.item = item;
+         this.date = date;
+         this.position = position;
+
+
+        // Toast the name to display temporarily on screen
+    }
+
+    private void showSpinnerDialog(long id) {
+        DatePickerFragment newFragment = new DatePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "datePicker");
+
+    }
+    // handle the date selected
+    @Override
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+
+        this.date=monthOfYear+"-"+dayOfMonth+"-"+year;
+
+        Item it = new Item(Long.parseLong(position),item,priority,date);
+        datasource.updateItem(it);
+
+        Cursor tempCursor =  datasource.getAllItemsCursor();
+        todoAdapter.changeCursor(tempCursor);
+        todoAdapter.notifyDataSetChanged();
+
+        Toast.makeText(this, "Successfully inserted the item", Toast.LENGTH_SHORT).show();
+
+    }
+
 
 
     public void setActivityBackgroundColor(int color) {
@@ -130,6 +187,7 @@ public class TodoActivity extends ActionBarActivity {
 
 
     }
+
 
 
     @Override
