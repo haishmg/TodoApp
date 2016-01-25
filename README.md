@@ -12,8 +12,6 @@ Additional Requirements completed :
 6) Tweak the style improving the UI / UX, play with colors, images or backgrounds
 
 
-
-
 ![todoapp](https://cloud.githubusercontent.com/assets/4529977/12556421/a9267b48-c33a-11e5-8358-7e5421ccf946.gif)
 
 GIF created with LiceCap.
